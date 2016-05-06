@@ -9,7 +9,13 @@
 import UIKit
 
 class LoginViewController: UIViewController {
-
+    
+    @IBOutlet weak var ingresarButton: UIButton!
+    @IBOutlet weak var contraseñaTextfield: UITextField!
+    @IBOutlet weak var cedulaTextfiled: UITextField!
+    @IBOutlet weak var estadoLabel: UILabel!
+    
+    @IBOutlet weak var registrarButton: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -20,16 +26,38 @@ class LoginViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    @IBAction func ingresaButtonPressed(sender: AnyObject) {
+        
+        let cedula = self.cedulaTextfiled.text!
+        let password = self.contraseñaTextfield.text!
+        
+        if(cedula.characters.count > 0 && password.characters.count > 0){
+        
+            self.ingresarButton.enabled = false
+            self.registrarButton.enabled = false
+            
+            Request.loginOnFireBase(password, relativePathString: "usuarios/\(cedula)", completionBlock: { (result, error) in
+                
+                if(result == true){
+                    self.performSegueWithIdentifier("opciones", sender: nil)
+                }
+                else
+                {
+                    self.estadoLabel.text = "Usuario incorrecto"
+                    self.ingresarButton.enabled = true
+                    self.registrarButton.enabled = true
+                }
+                
+            })
+            
+        }
+        else
+        {
+            self.estadoLabel.text = "Campos invalidos, validalos por favor"
+            self.ingresarButton.enabled = true
+            self.registrarButton.enabled = true
+        }
+        
     }
-    */
-
 }

@@ -10,6 +10,13 @@ import UIKit
 
 class JugadorViewController: UIViewController {
 
+    @IBOutlet weak var crearButton: UIButton!
+    @IBOutlet weak var nombreTextfield: UITextField!
+    @IBOutlet weak var posicionTexField: UITextField!
+    @IBOutlet weak var cedulaTexField: UITextField!
+    @IBOutlet weak var fortalezaTexField: UITextField!
+    @IBOutlet weak var contraseñaTexField: UITextField!
+    @IBOutlet weak var estadoLabel: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -19,17 +26,43 @@ class JugadorViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    
+        self.estadoLabel.text = "Sin registrarse"
+        
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    
+    @IBAction func crearButtonPressed(sender: AnyObject) {
+        
+        self.crearButton.enabled = false
+        self.navigationItem.hidesBackButton = true
+        
+        var user = User(nombre: self.nombreTextfield.text!, contraseña: self.contraseñaTexField.text!, fortaleza: self.fortalezaTexField.text!, posicion: self.posicionTexField.text!, cedula: self.cedulaTexField.text!)
+        
+        if(user.isValid()){
+        
+            Request.saveUserOnFireBase(user, completionBock: { (result, error) in
+                
+                if(result == true){
+                    self.navigationController?.popViewControllerAnimated(true)
+                }
+                else
+                {
+                    self.estadoLabel.text = "Error, valida los campos por favor."
+                    self.crearButton.enabled = true
+                    self.navigationItem.hidesBackButton = false
+                }
+                
+            })
+            
+        }
+        else
+        {
+            self.estadoLabel.text = "Error, valida los campos por favor."
+            self.crearButton.enabled = true
+            self.navigationItem.hidesBackButton = false
+        }
+        
     }
-    */
 
 }
