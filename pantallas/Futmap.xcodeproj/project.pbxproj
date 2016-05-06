@@ -27,6 +27,7 @@
 		CD673AA31CDD173400476236 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD673AA21CDD173400476236 /* User.swift */; };
 		CD673AA51CDD32A800476236 /* Partido.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD673AA41CDD32A800476236 /* Partido.swift */; };
 		CD673AA71CDD349C00476236 /* CrearPartidoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD673AA61CDD349C00476236 /* CrearPartidoViewController.swift */; };
+		CD673AA91CDD42CC00476236 /* MiPerfilViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD673AA81CDD42CC00476236 /* MiPerfilViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -53,6 +54,7 @@
 		CD673AA21CDD173400476236 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		CD673AA41CDD32A800476236 /* Partido.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Partido.swift; sourceTree = "<group>"; };
 		CD673AA61CDD349C00476236 /* CrearPartidoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CrearPartidoViewController.swift; sourceTree = "<group>"; };
+		CD673AA81CDD42CC00476236 /* MiPerfilViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MiPerfilViewController.swift; sourceTree = "<group>"; };
 		E8B61C310C9416752DF657A1 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -129,6 +131,7 @@
 				CD45BE621CC191B6007E511B /* DetailListaViewController.swift */,
 				CD45BE661CC19B66007E511B /* DetailJugadorViewController.swift */,
 				CD673AA61CDD349C00476236 /* CrearPartidoViewController.swift */,
+				CD673AA81CDD42CC00476236 /* MiPerfilViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -283,6 +286,7 @@
 				CD673AA71CDD349C00476236 /* CrearPartidoViewController.swift in Sources */,
 				CD45BE611CC188AD007E511B /* Lista.swift in Sources */,
 				CD45BE5D1CC17CA8007E511B /* ListaJuegosViewController.swift in Sources */,
+				CD673AA91CDD42CC00476236 /* MiPerfilViewController.swift in Sources */,
 				CD673AA31CDD173400476236 /* User.swift in Sources */,
 				CD45BE631CC191B6007E511B /* DetailListaViewController.swift in Sources */,
 				CD45BE5B1CC17C1E007E511B /* RankingViewController.swift in Sources */,

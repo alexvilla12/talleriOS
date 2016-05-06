@@ -28,7 +28,7 @@ class Request: NSObject {
     
     static let root = Firebase(url: firebaseURL)
     typealias readDataBlock = (result : AnyObject?, error : NSError?) -> ()
-    typealias loginBlock = (result : Bool?, error : NSError?) -> ()
+    typealias loginBlock = (user : User?, error : NSError?) -> ()
     typealias registerBlock = (result: Bool?, error : NSError?) -> ()
     
     class func loginOnFireBase(password : String, relativePathString : String, completionBlock : loginBlock){
@@ -44,7 +44,8 @@ class Request: NSObject {
                         
                         if(fireBasePassword as! String ==  password){
                             
-                            completionBlock(result: true, error: nil)
+                            let currentUser = User(dict: userDict)
+                            completionBlock(user: currentUser, error: nil)
                             return
                             
                         }
@@ -53,12 +54,12 @@ class Request: NSObject {
                     
                 }
                 
-                completionBlock(result: false, error: getErrorWithStatus(DATA_RETRIVING_STATUS.FAILED))
+                completionBlock(user: nil, error: getErrorWithStatus(DATA_RETRIVING_STATUS.FAILED))
                 return
                 
             }
             
-            completionBlock(result: false, error: error)
+            completionBlock(user: nil, error: error)
             return
             
         }

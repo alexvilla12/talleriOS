@@ -39,7 +39,9 @@ class LoginViewController: UIViewController {
             
             Request.loginOnFireBase(password, relativePathString: "usuarios/\(cedula)", completionBlock: { (result, error) in
                 
-                if(result == true){
+                if(result != nil){
+                    User.sharedInstance.setUser(result!)
+                    User.sharedInstance.cedula = cedula
                     self.performSegueWithIdentifier("opciones", sender: nil)
                 }
                 else

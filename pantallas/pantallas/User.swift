@@ -10,11 +10,51 @@ import UIKit
 
 class User: NSObject {
 
-    var nombre = ""
-    var contraseña = ""
-    var fortaleza = ""
-    var posicion = ""
-    var cedula = ""
+    static let sharedInstance = User()
+    
+    var nombre : String!
+    var contraseña : String!
+    var fortaleza : String!
+    var posicion : String!
+    var cedula : String!
+    
+    override init() {
+        self.nombre = ""
+        self.contraseña = ""
+        self.fortaleza = ""
+        self.posicion = ""
+        self.cedula = ""
+    }
+    
+    init(dict : NSDictionary) {
+        
+        self.cedula = ""
+        
+        if let nombre = dict.objectForKey("nombre") as? String {
+        
+            self.nombre = nombre
+            
+        }
+        
+        if let fortaleza = dict.objectForKey("fortaleza") as? String {
+            
+            self.fortaleza = fortaleza
+            
+        }
+        
+        if let posicion = dict.objectForKey("posicion") as? String {
+            
+            self.posicion = posicion
+            
+        }
+        
+        if let contraseña = dict.objectForKey("contraseña") as? String {
+            
+            self.contraseña = contraseña
+            
+        }
+        
+    }
     
     init(nombre : String, contraseña : String, fortaleza : String, posicion : String, cedula : String) {
         
@@ -33,6 +73,15 @@ class User: NSObject {
         
     }
     
+    
+    func setUser(user : User){
+    
+        self.nombre = user.nombre
+        self.contraseña = user.contraseña
+        self.fortaleza = user.fortaleza
+        self.posicion = user.posicion
+        
+    }
     
     func getDict() -> NSDictionary{
     
