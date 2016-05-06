@@ -11,13 +11,11 @@ import UIKit
 class ListaJuegosViewController: UIViewController, UITableViewDataSource, UITableViewDelegate
      {
     
-    @IBOutlet weak var tableView: UITableView!
     // MARK: - IBOutlets
-    //@IBOutlet weak var tableView: UITableView!
-    
+    @IBOutlet weak var tableView: UITableView!
     
     // MARK: - Properties
-    var listas = [Lista]()
+    var rankings = [Partido]()
     let cellIdentifier = "partidos"
     
     
@@ -25,7 +23,18 @@ class ListaJuegosViewController: UIViewController, UITableViewDataSource, UITabl
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        listas = Lista.listas()
+        
+        Partido.getAllMatches { (mathces) in
+        
+            if(mathces != nil){
+                
+                self.rankings = mathces!
+                self.tableView.reloadData()
+                
+            }
+            
+        }
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -37,8 +46,8 @@ class ListaJuegosViewController: UIViewController, UITableViewDataSource, UITabl
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
         
-        if let detailVC = segue.destinationViewController as? DetailListaViewController{
-            if let lista = sender as? Lista{
+        if let detailVC = segue.destinationViewController as? DetailJugadorViewController{
+            if let lista = sender as? Ranking{
                 
                 detailVC.lista = lista
                 
@@ -54,27 +63,26 @@ class ListaJuegosViewController: UIViewController, UITableViewDataSource, UITabl
     
     // MARK: - UITableViewDataSource
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return listas.count
+        return rankings.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier)
-        let lista = listas[indexPath.row]
+        let match = rankings[indexPath.row]
         cell?.textLabel?.numberOfLines = 0
-        cell?.textLabel?.text = lista.name
-        cell?.detailTextLabel?.text = String(lista.grade!)
+        cell?.textLabel?.text = match.nombre
+        cell?.detailTextLabel?.text = match.hora
         
         return cell!
     }
     
     // MARK: - UITableViewDelegate
+    
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
-        let course = listas[indexPath.row]
-        self.performSegueWithIdentifier("detail", sender: course)
+        let course = rankings[indexPath.row]
+        self.performSegueWithIdentifier("detail1", sender: course)
         
-    }
-    
-    // MARK: - DetailViewControllerDelegate
+}
     
 }

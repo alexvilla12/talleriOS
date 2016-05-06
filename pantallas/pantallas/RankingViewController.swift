@@ -16,7 +16,7 @@ class RankingViewController: UIViewController, UITableViewDataSource, UITableVie
     
     
     // MARK: - Properties
-    var rankings = [Ranking]()
+    var rankings = [User]()
     let cellIdentifier = "ranking"
     
     
@@ -24,7 +24,17 @@ class RankingViewController: UIViewController, UITableViewDataSource, UITableVie
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        rankings = Ranking.rankings()
+        
+        User.getAllUsers { (users) in
+            
+            if(users != nil){
+            
+                self.rankings = users!
+                self.tableView.reloadData()
+                
+            }
+            
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -58,10 +68,10 @@ class RankingViewController: UIViewController, UITableViewDataSource, UITableVie
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier)
-        let ranking = rankings[indexPath.row]
+        let user = rankings[indexPath.row]
         cell?.textLabel?.numberOfLines = 0
-        cell?.textLabel?.text = ranking.name
-        cell?.detailTextLabel?.text = String(ranking.grade!)
+        cell?.textLabel?.text = user.nombre
+        cell?.detailTextLabel?.text = user.puntaje
         
         return cell!
     }

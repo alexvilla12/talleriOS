@@ -11,12 +11,14 @@ import UIKit
 class User: NSObject {
 
     static let sharedInstance = User()
+    typealias usersBlock = (users : [User]?) -> ()
     
     var nombre : String!
     var contraseña : String!
     var fortaleza : String!
     var posicion : String!
     var cedula : String!
+    var puntaje : String!
     
     override init() {
         self.nombre = ""
@@ -24,6 +26,7 @@ class User: NSObject {
         self.fortaleza = ""
         self.posicion = ""
         self.cedula = ""
+        self.puntaje = ""
     }
     
     init(dict : NSDictionary) {
@@ -51,6 +54,12 @@ class User: NSObject {
         if let contraseña = dict.objectForKey("contraseña") as? String {
             
             self.contraseña = contraseña
+            
+        }
+        
+        if let puntaje = dict.objectForKey("puntaje") as? String {
+            
+            self.puntaje = puntaje
             
         }
         
@@ -89,8 +98,44 @@ class User: NSObject {
             "nombre" : self.nombre,
             "contraseña" : self.contraseña,
             "posicion":self.posicion,
-            "fortaleza":self.fortaleza
+            "fortaleza":self.fortaleza,
+            "puntaje":"5.0"
         ]
+        
+    }
+    
+    class func getAllUsers(comlpetionBlock : usersBlock){
+    
+        Request.getDataFromFireBase("usuarios") { (results, error) in
+            
+            if (error == nil)
+            {
+            
+                if let resultsDict = results as? NSArray{
+                
+                    var usersArray = [User]()
+                    
+                    for resultDict in resultsDict{
+
+                        if let resultDict = resultDict as? NSDictionary{
+                        
+                            let user = User(dict: resultDict)
+                            usersArray.append(user)
+                            
+                        }
+                        
+                    }
+                    
+                    comlpetionBlock(users: usersArray)
+                    return
+                    
+                }
+                
+            }
+
+            comlpetionBlock(users: nil)
+            
+        }
         
     }
     

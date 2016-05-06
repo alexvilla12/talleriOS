@@ -422,6 +422,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="tableView" destination="zB2-U2-rjf" id="5LB-w9-Cqg"/>
                         <segue destination="vU2-RR-h0x" kind="show" identifier="detail" id="kmW-tE-UXl"/>
                     </connections>
                 </viewController>
